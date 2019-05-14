@@ -1,4 +1,4 @@
-package main
+package model
 
 // PackageJSON defines the structure of the package.json file.
 type PackageJSON struct {
