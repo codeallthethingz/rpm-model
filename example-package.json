@@ -1,0 +1,86 @@
+{
+  "name": "round-bolt",
+  "version": "0.0.1",
+  "description": "simple round-bolt 1.5mm pitch",
+  "license": "MIT",
+  "units": "mm",
+  "metadata": [
+    "flat-head",
+    "15mm"
+  ],
+  "bounds": [
+    {
+      "name": "total-area",
+      "boundingType": {
+        "name": "round-cylinder",
+        "measurements": {
+          "height": "20",
+          "diameter": "15"
+        }
+      },
+      "coordinates": {
+        "x": "0",
+        "y": "0",
+        "z": "0"
+      }
+    },
+    {
+      "name": "head",
+      "boundingType": {
+        "name": "radial",
+        "measurements": {
+          "height": "5",
+          "diameter": "15"
+        }
+      },
+      "coordinates": {
+        "x": "0",
+        "y": "0",
+        "z": "15"
+      }
+    },
+    {
+      "name": "shaft",
+      "boundingType": {
+        "name": "screwthread",
+        "measurements": {
+          "pitch": "1.5",
+          "height": "15",
+          "diameter": "10"
+        }
+      },
+      "coordinates": {
+        "x": "0",
+        "y": "0",
+        "z": "0"
+      }
+    }
+  ],
+  "joins": [
+    "shaft"
+  ],
+  "dependencies": {
+    "flat-head-screwdriver-hole": "0.0.3"
+  },
+  "manifest": {
+    "flat-head-screwdriver-hole": [
+      {
+        "coordinates": {
+          "x": "0",
+          "y": "0",
+          "z": "18"
+        }, 
+        "rotation": {
+          "x": "0",
+          "y": "0",
+          "z": "0"
+        }, 
+        "scale": {
+          "x": "1",
+          "y": "1",
+          "z": "1"
+        }
+      }
+    ]
+  }
+}
