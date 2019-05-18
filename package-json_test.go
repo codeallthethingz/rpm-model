@@ -52,4 +52,5 @@ func TestCreate(t *testing.T) {
 	require.Equal(t, "1", screwdriverHole[0].Scale.Y)
 	require.Equal(t, "1", screwdriverHole[0].Scale.Z)
 
+	require.Equal(t, string(data), string(contents))
 }
