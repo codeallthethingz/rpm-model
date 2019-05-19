@@ -1,12 +1,11 @@
 {
-  "name": "round-bolt",
+  "name": "bolt-round-30mm",
   "version": "0.0.1",
   "description": "simple round-bolt 1.5mm pitch",
   "license": "MIT",
   "units": "mm",
   "metadata": [
-    "flat-head",
-    "15mm"
+    "flat-head"
   ],
   "bounds": [
     {
@@ -15,7 +14,7 @@
         "name": "round-cylinder",
         "measurements": {
           "diameter": "15",
-          "height": "20"
+          "height": "30"
         }
       },
       "coordinates": {
@@ -45,7 +44,7 @@
         "name": "screwthread",
         "measurements": {
           "diameter": "10",
-          "height": "15",
+          "height": "25",
           "pitch": "1.5"
         }
       },

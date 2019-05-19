@@ -1,0 +1,43 @@
+{
+  "name": "nut-hex",
+  "version": "1.6.1",
+  "description": "hex nut 1.5mm pitch",
+  "license": "MIT",
+  "units": "mm",
+  "bounds": [
+    {
+      "name": "total-area",
+      "boundingType": {
+        "name": "hex-cylinder",
+        "measurements": {
+          "diameter": "15",
+          "height": "5"
+        }
+      },
+      "coordinates": {
+        "x": "0",
+        "y": "0",
+        "z": "0"
+      }
+    },
+    {
+      "name": "shaft",
+      "boundingType": {
+        "name": "screwthread",
+        "measurements": {
+          "diameter": "10",
+          "height": "5",
+          "pitch": "1.5"
+        }
+      },
+      "coordinates": {
+        "x": "0",
+        "y": "0",
+        "z": "0"
+      }
+    }
+  ],
+  "joins": [
+    "shaft"
+  ]
+}

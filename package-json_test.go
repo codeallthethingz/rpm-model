@@ -9,7 +9,7 @@ import (
 )
 
 func TestCreate(t *testing.T) {
-	contents, err := ioutil.ReadFile("example-package.json")
+	contents, err := ioutil.ReadFile("examples/bolt-round-20mm/package.json")
 	require.Nil(t, err)
 
 	var p PackageJSON
@@ -18,12 +18,12 @@ func TestCreate(t *testing.T) {
 	data, err := json.MarshalIndent(&p, "", "  ")
 	require.Nil(t, err)
 
-	require.Equal(t, "round-bolt", p.Name)
+	require.Equal(t, "bolt-round-20mm", p.Name)
 	require.Equal(t, "0.0.1", p.Version)
 	require.Equal(t, "simple round-bolt 1.5mm pitch", p.Description)
 	require.Equal(t, "MIT", p.License)
 	require.Equal(t, "mm", p.Units)
-	require.Equal(t, []string{"flat-head", "15mm"}, p.Metedata)
+	require.Equal(t, []string{"flat-head"}, p.Metedata)
 
 	require.Equal(t, 3, len(p.Bounds))
 	bounds0 := p.Bounds[0]

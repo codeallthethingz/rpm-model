@@ -1,0 +1,43 @@
+{
+  "name": "nut-wing",
+  "version": "0.7.5",
+  "description": "wing-nut 1.5mm pitch",
+  "license": "MIT",
+  "units": "mm",
+  "bounds": [
+    {
+      "name": "total-area",
+      "boundingType": {
+        "name": "cylinder",
+        "measurements": {
+          "diameter": "20",
+          "height": "10"
+        }
+      },
+      "coordinates": {
+        "x": "0",
+        "y": "0",
+        "z": "0"
+      }
+    },
+    {
+      "name": "shaft",
+      "boundingType": {
+        "name": "screwthread",
+        "measurements": {
+          "diameter": "10",
+          "height": "5",
+          "pitch": "1.5"
+        }
+      },
+      "coordinates": {
+        "x": "0",
+        "y": "0",
+        "z": "0"
+      }
+    }
+  ],
+  "joins": [
+    "shaft"
+  ]
+}
