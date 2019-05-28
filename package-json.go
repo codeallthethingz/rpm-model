@@ -43,3 +43,120 @@ type BoundingType struct {
 	ScalesY      bool              `json:"scalesY,omitempty"`
 	ScalesZ      bool              `json:"scalesZ,omitempty"`
 }
+
+// PredefinedBoundingTypes that must be used for the mandatory total-area bounding type
+var PredefinedBoundingTypes = []BoundingType{
+	TriangularPrism, Cuboid, PentagonalPrism,
+	HexagonalPrism, HeptagonalPrism, OctagonalPrism,
+	NonagonPrism, DecagonalPrism, RoundCylinder,
+	OvalCylinder, Sphere, Ellipsoid,
+}
+
+// Ellipsoid 2 radius ellipsoid
+var Ellipsoid = BoundingType{
+	Name: "ellipsoid",
+	Measurements: map[string]string{
+		"radius1": "",
+		"radius2": "",
+	},
+}
+
+// Sphere just is a sphere.  The simplest shape to describe, the hardest to create.
+var Sphere = BoundingType{
+	Name: "sphere",
+	Measurements: map[string]string{
+		"radius": "",
+	},
+}
+
+// OvalCylinder oval prism
+var OvalCylinder = BoundingType{
+	Name: "oval cylinder",
+	Measurements: map[string]string{
+		"radius1": "",
+		"radius2": "",
+		"height":  "",
+	},
+}
+
+// RoundCylinder round prism
+var RoundCylinder = BoundingType{
+	Name: "round cylinder",
+	Measurements: map[string]string{
+		"radius": "",
+		"height": "",
+	},
+}
+
+// DecagonalPrism 10 equal sided prism
+var DecagonalPrism = BoundingType{
+	Name: "pecagonal prism",
+	Measurements: map[string]string{
+		"radius": "",
+		"height": "",
+	},
+}
+
+// NonagonPrism 9 equal sided prism
+var NonagonPrism = BoundingType{
+	Name: "nonagon prism",
+	Measurements: map[string]string{
+		"radius": "",
+		"height": "",
+	},
+}
+
+// OctagonalPrism 8 equal sided prism
+var OctagonalPrism = BoundingType{
+	Name: "octagonal prism",
+	Measurements: map[string]string{
+		"radius": "",
+		"height": "",
+	},
+}
+
+// HeptagonalPrism 7 equal sided prism
+var HeptagonalPrism = BoundingType{
+	Name: "heptagonal prism",
+	Measurements: map[string]string{
+		"radius": "",
+		"height": "",
+	},
+}
+
+// HexagonalPrism 6 equal sided prism
+var HexagonalPrism = BoundingType{
+	Name: "hexagonal prism",
+	Measurements: map[string]string{
+		"radius": "",
+		"height": "",
+	},
+}
+
+// PentagonalPrism 5 equal sided prism
+var PentagonalPrism = BoundingType{
+	Name: "pentagonal prism",
+	Measurements: map[string]string{
+		"radius": "",
+		"height": "",
+	},
+}
+
+// Cuboid right-angle rectangular prism
+var Cuboid = BoundingType{
+	Name: "cuboid",
+	Measurements: map[string]string{
+		"width":  "",
+		"length": "",
+		"height": "",
+	},
+}
+
+// TriangularPrism 3d Triangle.
+var TriangularPrism = BoundingType{
+	Name: "triangular prism",
+	Measurements: map[string]string{
+		"radius": "",
+		"height": "",
+	},
+}

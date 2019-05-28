@@ -13,7 +13,7 @@
       "boundingType": {
         "name": "round-cylinder",
         "measurements": {
-          "diameter": "15",
+          "radius": "7.5",
           "height": "30"
         }
       },
@@ -26,9 +26,9 @@
     {
       "name": "head",
       "boundingType": {
-        "name": "radial",
+        "name": "round-cylinder",
         "measurements": {
-          "diameter": "15",
+          "radius": "7.5",
           "height": "5"
         }
       },
@@ -43,7 +43,7 @@
       "boundingType": {
         "name": "screwthread",
         "measurements": {
-          "diameter": "10",
+          "radius": "5",
           "height": "25",
           "pitch": "1.5"
         }
