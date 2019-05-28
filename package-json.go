@@ -71,7 +71,7 @@ var Sphere = BoundingType{
 
 // OvalCylinder oval prism
 var OvalCylinder = BoundingType{
-	Name: "oval cylinder",
+	Name: "oval-cylinder",
 	Measurements: map[string]string{
 		"radius1": "",
 		"radius2": "",
@@ -81,7 +81,7 @@ var OvalCylinder = BoundingType{
 
 // RoundCylinder round prism
 var RoundCylinder = BoundingType{
-	Name: "round cylinder",
+	Name: "round-cylinder",
 	Measurements: map[string]string{
 		"radius": "",
 		"height": "",
@@ -90,7 +90,7 @@ var RoundCylinder = BoundingType{
 
 // DecagonalPrism 10 equal sided prism
 var DecagonalPrism = BoundingType{
-	Name: "pecagonal prism",
+	Name: "pecagonal-prism",
 	Measurements: map[string]string{
 		"radius": "",
 		"height": "",
@@ -99,7 +99,7 @@ var DecagonalPrism = BoundingType{
 
 // NonagonPrism 9 equal sided prism
 var NonagonPrism = BoundingType{
-	Name: "nonagon prism",
+	Name: "nonagon-prism",
 	Measurements: map[string]string{
 		"radius": "",
 		"height": "",
@@ -108,7 +108,7 @@ var NonagonPrism = BoundingType{
 
 // OctagonalPrism 8 equal sided prism
 var OctagonalPrism = BoundingType{
-	Name: "octagonal prism",
+	Name: "octagonal-prism",
 	Measurements: map[string]string{
 		"radius": "",
 		"height": "",
@@ -117,7 +117,7 @@ var OctagonalPrism = BoundingType{
 
 // HeptagonalPrism 7 equal sided prism
 var HeptagonalPrism = BoundingType{
-	Name: "heptagonal prism",
+	Name: "heptagonal-prism",
 	Measurements: map[string]string{
 		"radius": "",
 		"height": "",
@@ -126,7 +126,7 @@ var HeptagonalPrism = BoundingType{
 
 // HexagonalPrism 6 equal sided prism
 var HexagonalPrism = BoundingType{
-	Name: "hexagonal prism",
+	Name: "hexagonal-prism",
 	Measurements: map[string]string{
 		"radius": "",
 		"height": "",
@@ -135,7 +135,7 @@ var HexagonalPrism = BoundingType{
 
 // PentagonalPrism 5 equal sided prism
 var PentagonalPrism = BoundingType{
-	Name: "pentagonal prism",
+	Name: "pentagonal-prism",
 	Measurements: map[string]string{
 		"radius": "",
 		"height": "",
@@ -154,7 +154,7 @@ var Cuboid = BoundingType{
 
 // TriangularPrism 3d Triangle.
 var TriangularPrism = BoundingType{
-	Name: "triangular prism",
+	Name: "triangular-prism",
 	Measurements: map[string]string{
 		"radius": "",
 		"height": "",
