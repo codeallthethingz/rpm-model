@@ -36,7 +36,7 @@ func TestCreate(t *testing.T) {
 	require.Equal(t, false, bounds0.BoundingType.ScalesX)
 	require.Equal(t, false, bounds0.BoundingType.ScalesY)
 	require.Equal(t, false, bounds0.BoundingType.ScalesZ)
-	require.Equal(t, "15", bounds0.BoundingType.Measurements["diameter"])
+	require.Equal(t, "7.5", bounds0.BoundingType.Measurements["radius"])
 	require.Equal(t, "20", bounds0.BoundingType.Measurements["height"])
 
 	require.Equal(t, "shaft", p.Joins[0])

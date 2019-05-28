@@ -10,7 +10,7 @@
       "boundingType": {
         "name": "hex-cylinder",
         "measurements": {
-          "diameter": "15",
+          "radius": "7.5",
           "height": "5"
         }
       },
@@ -25,7 +25,7 @@
       "boundingType": {
         "name": "screwthread",
         "measurements": {
-          "diameter": "10",
+          "radius": "5",
           "height": "5",
           "pitch": "1.5"
         }
