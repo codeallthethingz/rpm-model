@@ -22,7 +22,7 @@ func TestCreate(t *testing.T) {
 	require.Equal(t, "0.0.1", p.Version)
 	require.Equal(t, "simple round-bolt 1.5mm pitch", p.Description)
 	require.Equal(t, "MIT", p.License)
-	require.Equal(t, "mm", p.Units)
+	require.Equal(t, Millimeter, p.Units)
 	require.Equal(t, []string{"flat-head"}, p.Metedata)
 
 	require.Equal(t, 3, len(p.Bounds))
