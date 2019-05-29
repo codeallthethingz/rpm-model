@@ -47,6 +47,12 @@ type BoundingType struct {
 // Unit of measure
 type Unit string
 
+// PredefinedUnits that must be used in a package.json
+var PredefinedUnits = []Unit{
+	Millimeter, Centimeter, Meter, Kilometer,
+	Inch, Foot, Yard, Mile,
+}
+
 // Units
 const (
 	Millimeter Unit = "mm"
