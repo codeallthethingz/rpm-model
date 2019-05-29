@@ -6,7 +6,7 @@ type PackageJSON struct {
 	Version      string            `json:"version,omitempty"`
 	Description  string            `json:"description"`
 	License      string            `json:"license,omitempty"`
-	Units        string            `json:"units,omitempty"`
+	Units        Unit              `json:"units,omitempty"`
 	Metedata     []string          `json:"metadata,omitempty"`
 	Bounds       []Bound           `json:"bounds,omitempty"`
 	Joins        []string          `json:"joins,omitempty"`
@@ -43,6 +43,21 @@ type BoundingType struct {
 	ScalesY      bool              `json:"scalesY,omitempty"`
 	ScalesZ      bool              `json:"scalesZ,omitempty"`
 }
+
+// Unit of measure
+type Unit string
+
+// Units
+const (
+	Millimeter Unit = "mm"
+	Centimeter Unit = "cm"
+	Meter      Unit = "m"
+	Kilometer  Unit = "km"
+	Inch       Unit = "inch"
+	Foot       Unit = "foot"
+	Yard       Unit = "yard"
+	Mile       Unit = "mile"
+)
 
 // PredefinedBoundingTypes that must be used for the mandatory total-area bounding type
 var PredefinedBoundingTypes = []BoundingType{
