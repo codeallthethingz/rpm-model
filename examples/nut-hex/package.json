@@ -4,6 +4,10 @@
   "description": "hex nut 1.5mm pitch",
   "license": "MIT",
   "units": "mm",
+  "metadata": [
+    "plutonium",
+    "power-orb"
+  ],
   "bounds": [
     {
       "name": "total-area",

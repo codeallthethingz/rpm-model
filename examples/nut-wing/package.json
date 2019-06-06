@@ -4,6 +4,9 @@
   "description": "wing-nut 1.5mm pitch",
   "license": "MIT",
   "units": "mm",
+  "metadata": [
+    "temperature-tested"
+  ],
   "bounds": [
     {
       "name": "total-area",

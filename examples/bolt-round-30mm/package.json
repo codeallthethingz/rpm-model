@@ -5,7 +5,8 @@
   "license": "MIT",
   "units": "mm",
   "metadata": [
-    "flat-head"
+    "flat-head",
+    "nano-coated"
   ],
   "bounds": [
     {
