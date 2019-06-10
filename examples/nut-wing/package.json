@@ -3,7 +3,7 @@
   "version": "0.7.5",
   "description": "wing-nut 1.5mm pitch",
   "license": "MIT",
-  "units": "mm",
+  "units": "inch",
   "metadata": [
     "temperature-tested"
   ],
