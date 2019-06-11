@@ -1,11 +1,8 @@
 {
-  "name": "model",
-  "version": "1.0.0",
+  "name": "@realitypackagemanager/model",
+  "version": "1.0.5",
   "description": "",
   "main": "package-json.js",
-  "scripts": {
-    "publish": "npm version patch && npm publish --access public"
-  },
   "author": "",
   "license": "MIT"
 }
