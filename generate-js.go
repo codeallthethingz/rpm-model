@@ -22,19 +22,18 @@ func main() {
 	jsOutput += "\n]\n"
 
 	boundingTypes := model.PredefinedBoundingTypes
-	jsOutput += "\nexports.predefinedBoundingTypes = {"
+	jsOutput += "\nexports.predefinedBoundingTypes = ["
 	for i, boundingType := range boundingTypes {
-		jsOutput += "\n  '" + string(boundingType.Name) + "'"
 		boundingTypeJSON, err := json.Marshal(boundingType)
 		if err != nil {
 			panic(err)
 		}
-		jsOutput += ": " + string(boundingTypeJSON)
+		jsOutput += "\n  " + string(boundingTypeJSON)
 		if i < len(boundingTypes)-1 {
 			jsOutput += ","
 		}
 	}
-	jsOutput += "\n}\n"
+	jsOutput += "\n]\n"
 	fmt.Printf("%s%s\n", aurora.White("generated"), aurora.Green(" model-js/package-json.js"))
 	ioutil.WriteFile("model-js/package-json.js", []byte(jsOutput), 0644)
 }
