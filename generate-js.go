@@ -7,11 +7,11 @@ import (
 	"os"
 
 	"github.com/codeallthethingz/rpm-model/model"
+	"github.com/logrusorgru/aurora"
 )
 
 func main() {
 	units := model.PredefinedUnits
-	createDirIfNotExist("model-js")
 	jsOutput := "exports.predefinedUnits = ["
 	for i, unit := range units {
 		jsOutput += "\n  '" + string(unit) + "'"
@@ -35,7 +35,7 @@ func main() {
 		}
 	}
 	jsOutput += "\n}\n"
-	fmt.Println(jsOutput)
+	fmt.Printf("%s%s\n", aurora.White("generated"), aurora.Green(" model-js/package-json.js"))
 	ioutil.WriteFile("model-js/package-json.js", []byte(jsOutput), 0644)
 }
 
