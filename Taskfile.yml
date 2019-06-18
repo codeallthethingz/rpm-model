@@ -1,0 +1,31 @@
+version: '2'
+
+vars:
+  VERSION:
+    sh: cat VERSION
+  MAJOR: 
+    sh: echo "{{.VERSION}}" | grep -o "[0-9]\+" | head -1 
+  MINOR: 
+    sh: echo "{{.VERSION}}" | grep -o "[0-9]\+" | head -2 | tail -1
+  PATCH: 
+    sh: echo "{{.VERSION}}" | grep -o "[0-9]\+" | head -3 | tail -1
+
+tasks:
+
+  bump-minor:
+    cmds: 
+      - echo "{{.MAJOR}}|{{.MINOR}}|{{.PATCH}}|"
+    
+  build:
+    cmds:
+      - go build
+
+  build-js:
+    cmds:
+      - go run generate-js.go
+
+  deploy:
+    deps: [ build, build-js]
+
+    cmds:
+      - cd model-js && npm publish --access-public --dry-run
