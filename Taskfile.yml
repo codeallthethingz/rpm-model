@@ -9,12 +9,18 @@ vars:
     sh: echo "{{.VERSION}}" | grep -o "[0-9]\+" | head -2 | tail -1
   PATCH: 
     sh: echo "{{.VERSION}}" | grep -o "[0-9]\+" | head -3 | tail -1
+  PATCHPLUS: 
+    sh: TEMP=$(echo "{{.VERSION}}" | grep -o "[0-9]\+" | head -3 | tail -1) && echo $((TEMP+1))
 
 tasks:
-
+  test:
+    cmds:
+      - echo "{{.PATCHPLUS}}"
   bump-minor:
     cmds: 
-      - echo "{{.MAJOR}}|{{.MINOR}}|{{.PATCH}}|"
+      - 'sed -i -e  "s/Version:.*/Version: {{.MAJOR}}.{{.MINOR}}.{{.PATCHPLUS}}/" README.md'
+      - 'sed -i -e  "s/var ModelVersion.*/var ModelVersion = \"{{.MAJOR}}.{{.MINOR}}.{{.PATCHPLUS}}\"/" model/package-json.go'
+      - 'sed -i -e  "s/\"version\":.*/\"version\": \"{{.MAJOR}}.{{.MINOR}}.{{.PATCHPLUS}}\",/" model-js/package.json'
     
   build:
     cmds:
