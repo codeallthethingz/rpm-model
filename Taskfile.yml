@@ -2,7 +2,7 @@ version: '2'
 
 vars:
   VERSION:
-    sh: cat VERSION
+    sh: grep "Version = \"\(.*\)\"" -o  model/package-json.go | grep -o "[0-9\.]\+"
   MAJOR: 
     sh: echo "{{.VERSION}}" | grep -o "[0-9]\+" | head -1 
   MINOR: 
@@ -13,14 +13,18 @@ vars:
     sh: TEMP=$(echo "{{.VERSION}}" | grep -o "[0-9]\+" | head -3 | tail -1) && echo $((TEMP+1))
 
 tasks:
-  test:
+  version:
     cmds:
-      - echo "{{.PATCHPLUS}}"
+      - echo "{{.MAJOR}}.{{.MINOR}}.{{.PATCH}}"
+
   bump-minor:
     cmds: 
-      - 'sed -i -e  "s/Version:.*/Version: {{.MAJOR}}.{{.MINOR}}.{{.PATCHPLUS}}/" README.md'
-      - 'sed -i -e  "s/var ModelVersion.*/var ModelVersion = \"{{.MAJOR}}.{{.MINOR}}.{{.PATCHPLUS}}\"/" model/package-json.go'
-      - 'sed -i -e  "s/\"version\":.*/\"version\": \"{{.MAJOR}}.{{.MINOR}}.{{.PATCHPLUS}}\",/" model-js/package.json'
+      - 'sed -i -e "s/Version:.*/Version: {{.MAJOR}}.{{.MINOR}}.{{.PATCHPLUS}}/g" README.md'
+      - rm README.md-e
+      - 'sed -i -e "s/var ModelVersion.*/var ModelVersion = \"{{.MAJOR}}.{{.MINOR}}.{{.PATCHPLUS}}\"/g" model/package-json.go'
+      - rm model/package-json.go-e
+      - 'sed -i -e "s/\"version\":.*/\"version\": \"{{.MAJOR}}.{{.MINOR}}.{{.PATCHPLUS}}\",/g" model-js/package.json'
+      - rm model-js/package.json-e
     
   build:
     cmds:
@@ -32,6 +36,11 @@ tasks:
 
   deploy:
     deps: [ build, build-js]
+    cmds:
+      - task: bump-minor
+      - task: build
+      - task: build-js
+
 
     cmds:
       - cd model-js && npm publish --access-public --dry-run
