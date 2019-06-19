@@ -1,10 +1,15 @@
 package model
 
 // ModelVersion the current version of the model.
-var ModelVersion = "1.0.6"
+var ModelVersion = "1.0.7"
 
 // MaxArchiveSizeBytes the maximum size a zipped archive file can be.
 var MaxArchiveSizeBytes = int64(1000000)
+
+// RequiredFiles files that must exist within the package archive.
+var RequiredFiles = []string{
+	"package.json", ".gitignore",
+}
 
 // PackageJSON defines the structure of the package.json file.
 type PackageJSON struct {
