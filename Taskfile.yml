@@ -1,0 +1,46 @@
+version: '2'
+
+vars:
+  VERSION:
+    sh: grep "Version = \"\(.*\)\"" -o  model/package-json.go | grep -o "[0-9\.]\+"
+  MAJOR: 
+    sh: echo "{{.VERSION}}" | grep -o "[0-9]\+" | head -1 
+  MINOR: 
+    sh: echo "{{.VERSION}}" | grep -o "[0-9]\+" | head -2 | tail -1
+  PATCH: 
+    sh: echo "{{.VERSION}}" | grep -o "[0-9]\+" | head -3 | tail -1
+  PATCHPLUS: 
+    sh: TEMP=$(echo "{{.VERSION}}" | grep -o "[0-9]\+" | head -3 | tail -1) && echo $((TEMP+1))
+
+tasks:
+  version:
+    cmds:
+      - echo "{{.MAJOR}}.{{.MINOR}}.{{.PATCH}}"
+
+  bump-minor:
+    cmds: 
+      - 'sed -i -e "s/Version:.*/Version: {{.MAJOR}}.{{.MINOR}}.{{.PATCHPLUS}}/g" README.md'
+      - rm README.md-e
+      - 'sed -i -e "s/var ModelVersion.*/var ModelVersion = \"{{.MAJOR}}.{{.MINOR}}.{{.PATCHPLUS}}\"/g" model/package-json.go'
+      - rm model/package-json.go-e
+      - 'sed -i -e "s/\"version\":.*/\"version\": \"{{.MAJOR}}.{{.MINOR}}.{{.PATCHPLUS}}\",/g" model-js/package.json'
+      - rm model-js/package.json-e
+      - task: build-js
+  
+  test:
+    cmds:
+      - go test -timeout 20s -coverprofile coverage.out -covermode=atomic ./...
+
+  build:
+    deps: [test]
+    cmds:
+      - go build
+
+  build-js:
+    cmds:
+      - go run generate-js.go
+
+  publish:
+    deps: [ build, build-js]
+    cmds:
+      - cd model-js && npm publish --access-public

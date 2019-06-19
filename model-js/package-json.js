@@ -1,3 +1,5 @@
+exports.maxArchiveSizeBytes = 1000000
+exports.modelVersion = 1.0.6
 exports.predefinedUnits = [
   'mm',
   'cm',

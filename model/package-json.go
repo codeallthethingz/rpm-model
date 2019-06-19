@@ -1,5 +1,11 @@
 package model
 
+// ModelVersion the current version of the model.
+var ModelVersion = "1.0.6"
+
+// MaxArchiveSizeBytes the maximum size a zipped archive file can be.
+var MaxArchiveSizeBytes = int64(1000000)
+
 // PackageJSON defines the structure of the package.json file.
 type PackageJSON struct {
 	Name         string            `json:"name,omitempty"`

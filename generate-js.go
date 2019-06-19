@@ -12,7 +12,9 @@ import (
 
 func main() {
 	units := model.PredefinedUnits
-	jsOutput := "exports.predefinedUnits = ["
+	jsOutput := fmt.Sprintf("exports.maxArchiveSizeBytes = %d\n", model.MaxArchiveSizeBytes)
+	jsOutput += fmt.Sprintf("exports.modelVersion = %s\n", model.ModelVersion)
+	jsOutput += "exports.predefinedUnits = ["
 	for i, unit := range units {
 		jsOutput += "\n  '" + string(unit) + "'"
 		if i < len(units)-1 {
