@@ -1,6 +1,6 @@
 # RPM Model
 
-Version: 1.0.6
+Version: 1.0.7
 
 A set of models that the RPM framework uses to think about 3D reality.
 
