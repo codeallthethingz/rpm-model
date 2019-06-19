@@ -40,7 +40,7 @@ tasks:
     cmds:
       - go run generate-js.go
 
-  deploy:
+  publish:
     deps: [ build, build-js]
     cmds:
       - cd model-js && npm publish --access-public
