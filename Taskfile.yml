@@ -25,6 +25,7 @@ tasks:
       - rm model/package-json.go-e
       - 'sed -i -e "s/\"version\":.*/\"version\": \"{{.MAJOR}}.{{.MINOR}}.{{.PATCHPLUS}}\",/g" model-js/package.json'
       - rm model-js/package.json-e
+      - task: build-js
   
   test:
     cmds:
