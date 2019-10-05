@@ -26,6 +26,7 @@ func TestParseComponentID(t *testing.T) {
 	badComponentID(t, "a_")
 	badComponentID(t, " _a")
 	badComponentID(t, "_a")
+	badComponentID(t, " ")
 	badComponentID(t, "usernameiswaytooloooooooooooooooooooooooooooooooooooooooooooooooong_nut")
 	badComponentID(t, "user_componentidiswaytooloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong")
 	badComponentID(t, "usernameendswith-_nut")
@@ -60,11 +61,15 @@ func TestParseVersion(t *testing.T) {
 	badVersion(t, "1.2.9-snapshot")
 	badVersion(t, "1.2.9-SNAP1")
 	badVersion(t, "1.2.-10")
+	badVersion(t, "1.X.3")
+	badVersion(t, "1.2.X")
 	badVersion(t, "0.0.0")
 	badVersion(t, "AOEU")
 	badVersion(t, "1234")
 	badVersion(t, "X.X.X")
 	badVersionSpecificError(t, "1341234123412341234123412341234123412341234.1.6", "value out of range")
+	badVersionSpecificError(t, "1.1341234123412341234123412341234123412341234.6", "value out of range")
+	badVersionSpecificError(t, "1.2.1341234123412341234123412341234123412341234", "value out of range")
 	badVersion(t, "3.2.1-SNAPSHOT-aoeu")
 	badVersion(t, "3.2.1--")
 	badVersion(t, "3.2.1-")
@@ -79,7 +84,7 @@ func badVersionSpecificError(t *testing.T, version string, msg string) {
 	require.Contains(t, err.Error(), msg)
 }
 func badVersion(t *testing.T, version string) {
-	badVersionSpecificError(t, version, "version number must match semantic versioning: https://semver.com")
+	badVersionSpecificError(t, version, "version number must match X.X.X-AAAAA")
 }
 func badComponentID(t *testing.T, componentID string) {
 	_, _, err := ParseComponentID(componentID)

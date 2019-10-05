@@ -9,7 +9,7 @@ import (
 
 // ParseVersion extracts and validates version number.
 func ParseVersion(version string) (int, int, int, string, error) {
-	badVersion := fmt.Errorf("version number must match semantic versioning: https://semver.com")
+	badVersion := fmt.Errorf("version number must match X.X.X-AAAAA")
 	test := `([0-9]+)\.([0-9]+)\.([0-9]+)(.*)`
 	testTrailing := `^[A-Z]+$`
 	re := regexp.MustCompile(test)
