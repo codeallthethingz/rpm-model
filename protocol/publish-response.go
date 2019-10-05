@@ -1,4 +1,4 @@
-package model
+package protocol
 
 // PublishResponse response from the rpm server for a publish event
 type PublishResponse struct {
