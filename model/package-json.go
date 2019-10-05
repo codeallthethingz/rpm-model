@@ -1,7 +1,7 @@
 package model
 
 // ModelVersion the current version of the model.
-var ModelVersion = "1.0.10"
+var ModelVersion = "1.0.11"
 
 // MaxArchiveSizeBytes the maximum size a zipped archive file can be.
 var MaxArchiveSizeBytes = int64(1000000)
