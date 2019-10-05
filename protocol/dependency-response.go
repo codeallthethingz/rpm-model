@@ -1,4 +1,4 @@
-package model
+package protocol
 
 // DependencyResponse the response from the dependency edpoint
 type DependencyResponse struct {
