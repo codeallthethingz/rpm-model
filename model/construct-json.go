@@ -1,35 +1,27 @@
 package model
 
 // ModelVersion the current version of the model.
-var ModelVersion = "0.0.12"
+var ModelVersion = "0.1.0"
 
 // MaxArchiveSizeBytes the maximum size a zipped archive file can be.
 var MaxArchiveSizeBytes = int64(1000000)
 
-// RequiredFiles files that must exist within the package archive.
+// RequiredFiles files that must exist within the construct archive.
 var RequiredFiles = []string{
-	"package.json", ".gitignore",
+	"construct.json", ".gitignore",
 }
 
-// PackageJSON defines the structure of the package.json file.
-type PackageJSON struct {
-	Name         string            `json:"name,omitempty"`
-	Version      string            `json:"version,omitempty"`
-	Description  string            `json:"description"`
-	License      string            `json:"license,omitempty"`
-	Units        Unit              `json:"units,omitempty"`
-	Metedata     []string          `json:"metadata,omitempty"`
-	Bounds       []Bound           `json:"bounds,omitempty"`
-	Joins        []string          `json:"joins,omitempty"`
-	Dependencies map[string]string `json:"dependencies,omitempty"`
-	Manifest     map[string][]CRS  `json:"manifest,omitempty"`
-}
-
-// CRS Coordinates Rotation Scale
-type CRS struct {
-	Coordinates Coordinates `json:"coordinates,omitempty"`
-	Rotation    Coordinates `json:"rotation,omitempty"`
-	Scale       Coordinates `json:"scale,omitempty"`
+// constructJSON defines the structure of the construct.json file.
+type constructJSON struct {
+	Name         string         `json:"name,omitempty"`
+	Version      string         `json:"version,omitempty"`
+	Description  string         `json:"description"`
+	License      string         `json:"license,omitempty"`
+	Units        Unit           `json:"units,omitempty"`
+	Metedata     []string       `json:"metadata,omitempty"`
+	Bounds       []Bound        `json:"bounds,omitempty"`
+	Joins        []string       `json:"joins,omitempty"`
+	Dependencies map[string]int `json:"dependencies,omitempty"`
 }
 
 // Bound defines an area of a 3D object
@@ -58,7 +50,7 @@ type BoundingType struct {
 // Unit of measure
 type Unit string
 
-// PredefinedUnits that must be used in a package.json
+// PredefinedUnits that must be used in a construct.json
 var PredefinedUnits = []Unit{
 	Millimeter, Centimeter, Meter, Kilometer,
 	Inch, Foot, Yard, Mile,

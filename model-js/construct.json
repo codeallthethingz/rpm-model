@@ -1,0 +1,8 @@
+{
+  "name": "@realityconstructmanager/model",
+  "version": "0.1.0",
+  "description": "",
+  "main": "construct-json.js",
+  "author": "",
+  "license": "MIT"
+}
