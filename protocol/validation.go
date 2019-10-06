@@ -9,6 +9,9 @@ import (
 
 // ParseVersion extracts and validates version number.
 func ParseVersion(version string) (int, int, int, string, error) {
+	if version == "latest" {
+		return 0, 0, 0, "", nil
+	}
 	badVersion := fmt.Errorf("version number must match X.X.X-AAAAA")
 	test := `([0-9]+)\.([0-9]+)\.([0-9]+)(.*)`
 	testTrailing := `^[A-Z]+$`
@@ -43,34 +46,46 @@ func ParseVersion(version string) (int, int, int, string, error) {
 }
 
 // ParseComponentID extracts and validates a component ID.
-func ParseComponentID(componentID string) (string, string, error) {
-	badFormat := fmt.Errorf("component ID must be of the form <username>_<component-name>")
+func ParseComponentID(componentID string) (string, string, string, error) {
+	badFormat := fmt.Errorf("component ID must be of the form <username>_<component-name> or  <username>_<component-name>@version")
 	if strings.TrimSpace(componentID) == "" {
-		return "", "", badFormat
+		return "", "", "", badFormat
 	}
 	lastIndex := strings.LastIndex(componentID, "_")
 	if lastIndex == -1 || lastIndex == 0 || lastIndex == len(componentID) {
-		return "", "", badFormat
+		return "", "", "", badFormat
 	}
 	owner := componentID[0:lastIndex]
 	name := componentID[lastIndex+1:]
+	indexOfAt := strings.LastIndex(componentID, "@")
+	if indexOfAt != -1 {
+		name = componentID[lastIndex+1 : indexOfAt]
+	}
 	if strings.TrimSpace(owner) == "" || strings.TrimSpace(name) == "" {
-		return "", "", badFormat
+		return "", "", "", badFormat
 	}
 	testOwner := `^[a-z0-9\-]{3,38}$`
 	testName := `^[a-z0-9\-]{3,100}$`
-
+	version := ""
+	if indexOfAt != -1 {
+		version = componentID[indexOfAt+1:]
+		_, _, _, _, err := ParseVersion(version)
+		if err != nil {
+			return "", "", "", badFormat
+		}
+	}
 	if ok, err := regexp.Match(testOwner, []byte(owner)); !ok || err != nil {
-		return "", "", badFormat
+		return "", "", "", badFormat
 	}
 	if ok, err := regexp.Match(testName, []byte(name)); !ok || err != nil {
-		return "", "", badFormat
+		return "", "", "", badFormat
 	}
 	if string(owner[0]) == "-" || string(owner[len(owner)-1]) == "-" || strings.Contains(owner, "--") {
-		return "", "", badFormat
+		return "", "", "", badFormat
 	}
 	if string(name[0]) == "-" || string(name[len(name)-1]) == "-" || strings.Contains(name, "--") {
-		return "", "", badFormat
+		return "", "", "", badFormat
 	}
-	return owner, name, nil
+
+	return owner, name, version, nil
 }

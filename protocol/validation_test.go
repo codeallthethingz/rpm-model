@@ -7,11 +7,26 @@ import (
 )
 
 func TestParseComponentID(t *testing.T) {
-	owner, name, err := ParseComponentID("0codeall-thethingz_hex-nut-particle1")
+	owner, name, version, err := ParseComponentID("0codeall-thethingz_hex-nut-particle1")
 	require.Nil(t, err)
+	require.Equal(t, "", version)
 	require.Equal(t, "0codeall-thethingz", owner)
 	require.Equal(t, "hex-nut-particle1", name)
 
+	owner, name, version, _ = ParseComponentID("0codeall-thethingz_hex-nut-particle1@1.2.3")
+	require.Equal(t, "1.2.3", version)
+	require.Equal(t, "0codeall-thethingz", owner)
+	require.Equal(t, "hex-nut-particle1", name)
+
+	owner, name, version, _ = ParseComponentID("0codeall-thethingz_hex-nut-particle1@latest")
+	require.Equal(t, "latest", version)
+	require.Equal(t, "0codeall-thethingz", owner)
+	require.Equal(t, "hex-nut-particle1", name)
+
+	badComponentID(t, "0codeall-thethingz_hex-nut-particle1@l")
+	badComponentID(t, "0codeall-thethingz_hex-nut-particle1@1.2")
+	badComponentID(t, "0codeall-thethingz_hex-nut-particle1@@1.2.3")
+	badComponentID(t, "0codeall-thethingz_hex-nut-particle1@1.2.2.3")
 	badComponentID(t, "_")
 	badComponentID(t, " _ ")
 	badComponentID(t, "missing")
@@ -87,7 +102,7 @@ func badVersion(t *testing.T, version string) {
 	badVersionSpecificError(t, version, "version number must match X.X.X-AAAAA")
 }
 func badComponentID(t *testing.T, componentID string) {
-	_, _, err := ParseComponentID(componentID)
+	_, _, _, err := ParseComponentID(componentID)
 	require.NotNil(t, err)
 	require.Contains(t, err.Error(), "component ID must be of the form")
 }
