@@ -11,8 +11,8 @@ var RequiredFiles = []string{
 	"construct.json", ".gitignore",
 }
 
-// constructJSON defines the structure of the construct.json file.
-type constructJSON struct {
+// ConstructJSON defines the structure of the construct.json file.
+type ConstructJSON struct {
 	Name         string         `json:"name,omitempty"`
 	Version      string         `json:"version,omitempty"`
 	Description  string         `json:"description"`

@@ -12,7 +12,7 @@ func TestCreate(t *testing.T) {
 	contents, err := ioutil.ReadFile("examples/user_bolt-round-20mm/construct.json")
 	require.Nil(t, err)
 
-	var p constructJSON
+	var p ConstructJSON
 	require.Nil(t, json.Unmarshal(contents, &p))
 
 	data, err := json.MarshalIndent(&p, "", "  ")
