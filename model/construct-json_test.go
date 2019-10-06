@@ -9,10 +9,10 @@ import (
 )
 
 func TestCreate(t *testing.T) {
-	contents, err := ioutil.ReadFile("examples/user_bolt-round-20mm/package.json")
+	contents, err := ioutil.ReadFile("examples/user_bolt-round-20mm/construct.json")
 	require.Nil(t, err)
 
-	var p PackageJSON
+	var p constructJSON
 	require.Nil(t, json.Unmarshal(contents, &p))
 
 	data, err := json.MarshalIndent(&p, "", "  ")

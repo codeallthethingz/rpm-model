@@ -6,13 +6,13 @@ var ModelVersion = "0.1.0"
 // MaxArchiveSizeBytes the maximum size a zipped archive file can be.
 var MaxArchiveSizeBytes = int64(1000000)
 
-// RequiredFiles files that must exist within the package archive.
+// RequiredFiles files that must exist within the construct archive.
 var RequiredFiles = []string{
-	"package.json", ".gitignore",
+	"construct.json", ".gitignore",
 }
 
-// PackageJSON defines the structure of the package.json file.
-type PackageJSON struct {
+// constructJSON defines the structure of the construct.json file.
+type constructJSON struct {
 	Name         string         `json:"name,omitempty"`
 	Version      string         `json:"version,omitempty"`
 	Description  string         `json:"description"`
@@ -50,7 +50,7 @@ type BoundingType struct {
 // Unit of measure
 type Unit string
 
-// PredefinedUnits that must be used in a package.json
+// PredefinedUnits that must be used in a construct.json
 var PredefinedUnits = []Unit{
 	Millimeter, Centimeter, Meter, Kilometer,
 	Inch, Foot, Yard, Mile,

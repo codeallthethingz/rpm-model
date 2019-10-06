@@ -36,8 +36,8 @@ func main() {
 		}
 	}
 	jsOutput += "\n]\n"
-	fmt.Printf("%s%s\n", aurora.White("generated"), aurora.Green(" model-js/package-json.js"))
-	ioutil.WriteFile("model-js/package-json.js", []byte(jsOutput), 0644)
+	fmt.Printf("%s%s\n", aurora.White("generated"), aurora.Green(" model-js/construct-json.js"))
+	ioutil.WriteFile("model-js/construct-json.js", []byte(jsOutput), 0644)
 }
 
 func createDirIfNotExist(dir string) {

@@ -2,7 +2,7 @@ version: '2'
 
 vars:
   VERSION:
-    sh: grep "Version = \"\(.*\)\"" -o  model/package-json.go | grep -o "[0-9\.]\+"
+    sh: grep "Version = \"\(.*\)\"" -o  model/construct-json.go | grep -o "[0-9\.]\+"
   MAJOR: 
     sh: echo "{{.VERSION}}" | grep -o "[0-9]\+" | head -1 
   MINOR: 
@@ -21,10 +21,10 @@ tasks:
     cmds: 
       - 'sed -i -e "s/Version:.*/Version: {{.MAJOR}}.{{.MINOR}}.{{.PATCHPLUS}}/g" README.md'
       - rm README.md-e
-      - 'sed -i -e "s/var ModelVersion.*/var ModelVersion = \"{{.MAJOR}}.{{.MINOR}}.{{.PATCHPLUS}}\"/g" model/package-json.go'
-      - rm model/package-json.go-e
-      - 'sed -i -e "s/\"version\":.*/\"version\": \"{{.MAJOR}}.{{.MINOR}}.{{.PATCHPLUS}}\",/g" model-js/package.json'
-      - rm model-js/package.json-e
+      - 'sed -i -e "s/var ModelVersion.*/var ModelVersion = \"{{.MAJOR}}.{{.MINOR}}.{{.PATCHPLUS}}\"/g" model/construct-json.go'
+      - rm model/construct-json.go-e
+      - 'sed -i -e "s/\"version\":.*/\"version\": \"{{.MAJOR}}.{{.MINOR}}.{{.PATCHPLUS}}\",/g" model-js/construct.json'
+      - rm model-js/construct.json-e
       - task: build-js
   
   test:
