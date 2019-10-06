@@ -9,7 +9,7 @@ import (
 )
 
 func TestCreate(t *testing.T) {
-	contents, err := ioutil.ReadFile("examples/bolt-round-20mm/package.json")
+	contents, err := ioutil.ReadFile("examples/user_bolt-round-20mm/package.json")
 	require.Nil(t, err)
 
 	var p PackageJSON
@@ -40,17 +40,7 @@ func TestCreate(t *testing.T) {
 	require.Equal(t, "20", bounds0.BoundingType.Measurements["height"])
 
 	require.Equal(t, "shaft", p.Joins[0])
-	require.Equal(t, "0.0.3", p.Dependencies["flat-head-screwdriver-hole"])
-	screwdriverHole := p.Manifest["flat-head-screwdriver-hole"]
-	require.Equal(t, "0", screwdriverHole[0].Coordinates.X)
-	require.Equal(t, "0", screwdriverHole[0].Coordinates.Y)
-	require.Equal(t, "18", screwdriverHole[0].Coordinates.Z)
-	require.Equal(t, "0", screwdriverHole[0].Rotation.X)
-	require.Equal(t, "0", screwdriverHole[0].Rotation.Y)
-	require.Equal(t, "0", screwdriverHole[0].Rotation.Z)
-	require.Equal(t, "1", screwdriverHole[0].Scale.X)
-	require.Equal(t, "1", screwdriverHole[0].Scale.Y)
-	require.Equal(t, "1", screwdriverHole[0].Scale.Z)
+	require.Equal(t, 1, p.Dependencies["user_flat-head-screwdriver-hole-0.0.3"])
 
 	require.Equal(t, string(data), string(contents))
 }
