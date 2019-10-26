@@ -60,6 +60,6 @@
     "shaft"
   ],
   "dependencies": {
-    "flat-head-screwdriver-hole": 3
+    "flat-head-screwdriver-hole@1.2.3": 3
   }
 }
