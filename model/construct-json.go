@@ -1,7 +1,7 @@
 package model
 
 // ModelVersion the current version of the model.
-var ModelVersion = "0.1.1"
+var ModelVersion = "0.2.0"
 
 // MaxArchiveSizeBytes the maximum size a zipped archive file can be.
 var MaxArchiveSizeBytes = int64(1000000)
@@ -40,11 +40,12 @@ type Coordinates struct {
 
 // BoundingType holds the info about the maximum dimensions of the object
 type BoundingType struct {
-	Name         string            `json:"name,omitempty"`
-	Measurements map[string]string `json:"measurements,omitempty"`
-	ScalesX      bool              `json:"scalesX,omitempty"`
-	ScalesY      bool              `json:"scalesY,omitempty"`
-	ScalesZ      bool              `json:"scalesZ,omitempty"`
+	Name          string            `json:"name,omitempty"`
+	Measurements  map[string]string `json:"measurements,omitempty"`
+	UnitOverrides map[string]Unit   `json:"unitOverrides,omitempty"`
+	ScalesX       bool              `json:"scalesX,omitempty"`
+	ScalesY       bool              `json:"scalesY,omitempty"`
+	ScalesZ       bool              `json:"scalesZ,omitempty"`
 }
 
 // Unit of measure

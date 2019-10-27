@@ -38,9 +38,10 @@ func TestCreate(t *testing.T) {
 	require.Equal(t, false, bounds0.BoundingType.ScalesZ)
 	require.Equal(t, "7.5", bounds0.BoundingType.Measurements["radius"])
 	require.Equal(t, "20", bounds0.BoundingType.Measurements["height"])
+	require.Equal(t, Inch, bounds0.BoundingType.UnitOverrides["height"])
 
 	require.Equal(t, "shaft", p.Joins[0])
-	require.Equal(t, 1, p.Dependencies["user_flat-head-screwdriver-hole-0.0.3"])
+	require.Equal(t, 1, p.Dependencies["user_flat-head-screwdriver-hole@0.0.3"])
 
 	require.Equal(t, string(data), string(contents))
 }

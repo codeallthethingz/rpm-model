@@ -16,6 +16,9 @@
         "measurements": {
           "height": "20",
           "radius": "7.5"
+        },
+        "unitOverrides": {
+          "height": "inch"
         }
       },
       "coordinates": {
