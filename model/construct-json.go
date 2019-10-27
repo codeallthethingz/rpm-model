@@ -40,11 +40,12 @@ type Coordinates struct {
 
 // BoundingType holds the info about the maximum dimensions of the object
 type BoundingType struct {
-	Name         string            `json:"name,omitempty"`
-	Measurements map[string]string `json:"measurements,omitempty"`
-	ScalesX      bool              `json:"scalesX,omitempty"`
-	ScalesY      bool              `json:"scalesY,omitempty"`
-	ScalesZ      bool              `json:"scalesZ,omitempty"`
+	Name          string            `json:"name,omitempty"`
+	Measurements  map[string]string `json:"measurements,omitempty"`
+	UnitOverrides map[string]Unit   `json:"unitOverrides,omitempty"`
+	ScalesX       bool              `json:"scalesX,omitempty"`
+	ScalesY       bool              `json:"scalesY,omitempty"`
+	ScalesZ       bool              `json:"scalesZ,omitempty"`
 }
 
 // Unit of measure
