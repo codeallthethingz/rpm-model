@@ -17,7 +17,7 @@ tasks:
     cmds:
       - echo "{{.MAJOR}}.{{.MINOR}}.{{.PATCH}}"
 
-  bump-minor:
+  bump-patch:
     cmds: 
       - 'sed -i -e "s/Version:.*/Version: {{.MAJOR}}.{{.MINOR}}.{{.PATCHPLUS}}/g" README.md'
       - rm README.md-e
