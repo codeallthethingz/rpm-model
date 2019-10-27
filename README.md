@@ -16,9 +16,9 @@ Install task
 
 `brew install go-task/tap/go-task`
 
-Run bump-minor
+Run bump-patch
 
-`task bump-minor`
+`task bump-patch`
 
 Publish to npm
 
