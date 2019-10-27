@@ -28,7 +28,7 @@
           "radius": "7.5",
           "height": "5"
         },
-        "unitOverride": {
+        "unitOverrides": {
           "height": "inch"
         }
       },
