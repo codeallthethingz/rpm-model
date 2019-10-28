@@ -3,8 +3,11 @@ package protocol
 import (
 	"fmt"
 	"regexp"
+	"sort"
 	"strconv"
 	"strings"
+
+	"github.com/codeallthethingz/rpm-model/model"
 )
 
 // ParseVersion extracts and validates version number.
@@ -88,4 +91,112 @@ func ParseComponentID(componentID string) (string, string, string, error) {
 	}
 
 	return owner, name, version, nil
+}
+
+// ValidateConstructJSON makes sure the construct json is all looking good
+func ValidateConstructJSON(constructJSON *model.ConstructJSON) *UserFacingMessage {
+	var missingFields []string
+	errors := ""
+	if isBlank(constructJSON.Name) {
+		missingFields = append(missingFields, "name")
+	}
+	if isBlank(constructJSON.Version) {
+		missingFields = append(missingFields, "version")
+	}
+	if isBlank(constructJSON.License) {
+		missingFields = append(missingFields, "license")
+	}
+	if isBlank(string(constructJSON.Units)) {
+		missingFields = append(missingFields, "units")
+	}
+	if constructJSON.Bounds == nil || len(constructJSON.Bounds) == 0 {
+		missingFields = append(missingFields, "bounds")
+	} else {
+		errors = validateFirstBounds(constructJSON)
+	}
+	if len(missingFields) > 0 {
+		errors = "construct.json must include "
+		errors += makeCommaAndString(missingFields)
+	}
+
+	if !isBlank(errors) {
+		return &UserFacingMessage{
+			Message:    errors,
+			StatusCode: 400,
+		}
+	}
+	return nil
+}
+
+func isBlank(element string) bool {
+	if strings.TrimSpace(element) == "" {
+		return true
+	}
+	return false
+}
+
+func validateFirstBounds(constructJSON *model.ConstructJSON) string {
+	firstBound := constructJSON.Bounds[0]
+	if firstBound.Name != "total-area" {
+		return "first bound must be called total-area"
+	}
+	allowed := ""
+	for _, bt := range model.PredefinedBoundingTypes {
+		allowed += bt.Name + ", "
+		if bt.Name == firstBound.BoundingType.Name {
+			return validateMeasurements(bt, firstBound.BoundingType)
+		}
+	}
+	return "bounding type name \"" + firstBound.BoundingType.Name + "\" is not in the allowable list for total-area.  Valid options are " + allowed
+}
+
+func validateMeasurements(template model.BoundingType, pjBoundingType model.BoundingType) string {
+	errors := ""
+	missingFields := []string{}
+	badFields := []string{}
+	for k := range template.Measurements {
+		value, ok := pjBoundingType.Measurements[k]
+		if !ok {
+			missingFields = append(missingFields, k)
+		} else {
+			if isBlank(value) {
+				missingFields = append(missingFields, k)
+			} else {
+				_, err := strconv.ParseFloat(value, 64)
+				if err != nil {
+					badFields = append(badFields, k)
+				}
+			}
+		}
+	}
+	sort.Strings(missingFields)
+	sort.Strings(badFields)
+	if len(missingFields) > 0 {
+		errors = "bounding type \"" + template.Name + "\" is missing metrics "
+		errors += makeCommaAndString(missingFields)
+	}
+	if len(badFields) > 0 {
+		if !isBlank(errors) {
+			errors += " also "
+		}
+		errors += makeCommaAndString(badFields) + " must be decimal"
+		if len(badFields) > 1 {
+			errors += "s"
+		}
+	}
+	return errors
+}
+
+func makeCommaAndString(items []string) string {
+	errors := ""
+	for i, field := range items {
+		if i == len(items)-1 && len(items) > 1 {
+			errors += " and "
+		}
+		errors += field
+		if i < len(items)-2 {
+			errors += ", "
+		}
+	}
+	return errors
 }
