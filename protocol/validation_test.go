@@ -1,11 +1,30 @@
 package protocol
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"testing"
 
+	"github.com/codeallthethingz/rpm-model/model"
 	"github.com/stretchr/testify/require"
 )
 
+func TestBadConstructJSON(t *testing.T) {
+	err := ValidateConstructJSON(&model.ConstructJSON{})
+	require.NotNil(t, err)
+	require.Equal(t, "construct.json must include name, version, license, units and bounds", err.Error())
+	require.NotNil(t, ValidateConstructJSON(&model.ConstructJSON{Bounds: []model.Bound{model.Bound{}}}))
+	require.NotNil(t, ValidateConstructJSON(&model.ConstructJSON{Bounds: []model.Bound{model.Bound{Name: "total-area"}}}))
+	require.NotNil(t, ValidateConstructJSON(&model.ConstructJSON{Bounds: []model.Bound{model.Bound{Name: "total-area", BoundingType: model.BoundingType{Name: "cuboid", Measurements: map[string]string{"height": ""}}}}}))
+	require.NotNil(t, ValidateConstructJSON(&model.ConstructJSON{Bounds: []model.Bound{model.Bound{Name: "total-area", BoundingType: model.BoundingType{Name: "cuboid", Measurements: map[string]string{"height": "", "width": "N", "length": "aoeu"}}}}}))
+}
+func TestGoodConstructJSON(t *testing.T) {
+	contents, err := ioutil.ReadFile("../model/examples/user_bolt-round-20mm/construct.json")
+	require.Nil(t, err)
+	p := &model.ConstructJSON{}
+	require.Nil(t, json.Unmarshal(contents, p))
+	require.Nil(t, ValidateConstructJSON(p))
+}
 func TestParseComponentID(t *testing.T) {
 	owner, name, version, err := ParseComponentID("0codeall-thethingz_hex-nut-particle1")
 	require.Nil(t, err)
