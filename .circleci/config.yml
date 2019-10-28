@@ -5,6 +5,15 @@ jobs:
       - image: circleci/golang:1.13.1
     steps:
       - checkout
-      - run: go get -v -t -d ./...
+      - restore_cache:
+          keys:
+            - go-mod-v1-{{ checksum "go.sum" }}
+      - run:
+          name: download-libraries
+          command: |
+            go get -u
+      - save_cache:
+          key: go-mod-v1-{{ checksum "go.sum" }}
+          paths:
+            - "/go/pkg/mod"
       - run: go test -v ./...
-      
