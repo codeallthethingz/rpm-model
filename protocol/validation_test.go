@@ -125,3 +125,75 @@ func badComponentID(t *testing.T, componentID string) {
 	require.NotNil(t, err)
 	require.Contains(t, err.Error(), "component ID must be of the form")
 }
+
+func filled() *model.ConstructJSON {
+	return &model.ConstructJSON{
+		Name:    "test thing",
+		Version: "0.0.1",
+		License: "MIT",
+		Units:   "mm",
+	}
+}
+
+func TestValidateConstructJSON(t *testing.T) {
+	err := ValidateConstructJSON(&model.ConstructJSON{
+		Version: "0.0.1",
+	})
+	require.Contains(t, err.Error(), "construct.json must include name, ")
+}
+
+func TestValidateConstructBadBounds(t *testing.T) {
+	pj := filled()
+	pj.Bounds = []model.Bound{
+		model.Bound{
+			Name: "total-aquarium",
+		},
+	}
+	err := ValidateConstructJSON(pj)
+	require.Contains(t, err.Error(), "first bound must be called")
+}
+
+func TestValidateConstructBadBoundsBadBoundingType(t *testing.T) {
+	pj := filled()
+	pj.Bounds = []model.Bound{
+		model.Bound{
+			Name: "total-area",
+			BoundingType: model.BoundingType{
+				Name: "cube",
+			}}}
+	err := ValidateConstructJSON(pj)
+	require.Error(t, err)
+	require.Contains(t, err.Error(), "\"cube\" is not in the allowable list")
+}
+
+func TestValidateConstructBadBoundsMissingMetric(t *testing.T) {
+	pj := filled()
+	pj.Bounds = []model.Bound{
+		model.Bound{
+			Name: "total-area",
+			BoundingType: model.BoundingType{
+				Name: "cuboid",
+			}}}
+	err := ValidateConstructJSON(pj)
+	require.NotNil(t, err)
+	require.Contains(t, err.Error(), "missing metrics")
+}
+
+func TestValidateConstructBadBoundsBadMetric(t *testing.T) {
+	pj := filled()
+	pj.Bounds = []model.Bound{
+		model.Bound{
+			Name: "total-area",
+			BoundingType: model.BoundingType{
+				Name: "cuboid",
+				Measurements: map[string]string{
+					"width":  "k",
+					"height": "",
+					"length": "5h",
+				},
+			}}}
+	err := ValidateConstructJSON(pj)
+	require.NotNil(t, err)
+	require.Contains(t, err.Error(), "missing metrics")
+	require.Contains(t, err.Error(), "length and width must be decimals")
+}
