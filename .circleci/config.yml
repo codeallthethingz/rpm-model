@@ -12,8 +12,12 @@ jobs:
           name: download-libraries
           command: |
             go get -u
+      - run: 
+          name: install task
+          command: |
+            curl -sL https://taskfile.dev/install.sh | sh
       - save_cache:
           key: go-mod-v1-{{ checksum "go.sum" }}
           paths:
             - "/go/pkg/mod"
-      - run: go test -v ./...
+      - run: task test
