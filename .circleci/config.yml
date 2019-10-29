@@ -5,6 +5,26 @@ jobs:
       - image: circleci/golang:1.13.1
     steps:
       - checkout
-      - run: go get -v -t -d ./...
-      - run: go test -v ./...
-      
+      - restore_cache:
+          keys:
+            - go-mod-v1-{{ checksum "go.sum" }}
+      - run:
+          name: download-libraries
+          command: |
+            go get -u
+      - run:
+          name: install task
+          command: |
+            curl -sL https://taskfile.dev/install.sh | sh
+      - save_cache:
+          key: go-mod-v1-{{ checksum "go.sum" }}
+          paths:
+            - "/go/pkg/mod"
+      - run:
+          name: create test coverage
+          command: |
+            go test -race -coverprofile=coverage.txt -covermode=atomic
+      - run:
+          name: upload coverage
+          command: |
+            bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
