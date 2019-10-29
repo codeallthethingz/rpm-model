@@ -23,7 +23,7 @@ jobs:
       - run:
           name: create test coverage
           command: |
-            go test -race -coverprofile=coverage.txt -covermode=atomic
+            task test
       - run:
           name: upload coverage
           command: |
