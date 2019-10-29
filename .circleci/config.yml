@@ -23,7 +23,7 @@ jobs:
       - run:
           name: create test coverage
           command: |
-            task test
+            ./bin/task test
       - run:
           name: upload coverage
           command: |
