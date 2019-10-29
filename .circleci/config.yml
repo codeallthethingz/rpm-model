@@ -12,7 +12,7 @@ jobs:
           name: download-libraries
           command: |
             go get -u
-      - run: 
+      - run:
           name: install task
           command: |
             curl -sL https://taskfile.dev/install.sh | sh
@@ -22,9 +22,9 @@ jobs:
             - "/go/pkg/mod"
       - run:
           name: create test coverage
-          command: | 
+          command: |
             go test -race -coverprofile=coverage.txt -covermode=atomic
-      - run: 
+      - run:
           name: upload coverage
-          command: | 
+          command: |
             bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
